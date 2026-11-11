@@ -1,0 +1,93 @@
+#include <stdio.h>
+
+double calculateBMI(double weight, double height)
+{
+    double height_m = height / 100.0;
+    return weight / (height_m * height_m);
+}
+
+double calculateWHR(double waist, double hips)
+{
+    return waist / hips;
+}
+
+int main()
+{
+    int choice;
+
+    do
+    {
+        printf("\n===== MENU =====\n");
+        printf("1. Oblicz BMI\n");
+        printf("2. Oblicz WHR\n");
+        printf("0. Zakoncz program\n");
+        printf("Wybor: ");
+        scanf("%d", &choice);
+
+        switch(choice)
+        {
+            case 1:
+            {
+                double weight, height;
+
+                for(int i = 1; i <= 3; i++)
+                {
+                    printf("\nOsoba %d\n", i);
+
+                    do
+                    {
+                        printf("Podaj wage (kg): ");
+                        scanf("%lf", &weight);
+                    }
+                    while(weight <= 0);
+
+                    do
+                    {
+                        printf("Podaj wzrost (cm): ");
+                        scanf("%lf", &height);
+                    }
+                    while(height <= 0);
+
+                    double bmi = calculateBMI(weight, height);
+
+                    printf("BMI = %.2lf\n", bmi);
+                }
+                break;
+            }
+
+            case 2:
+            {
+                double waist, hips;
+
+                do
+                {
+                    printf("Podaj obwod talii (cm): ");
+                    scanf("%lf", &waist);
+                }
+                while(waist <= 0);
+
+                do
+                {
+                    printf("Podaj obwod bioder (cm): ");
+                    scanf("%lf", &hips);
+                }
+                while(hips <= 0);
+
+                double whr = calculateWHR(waist, hips);
+
+                printf("WHR = %.2lf\n", whr);
+                break;
+            }
+
+            case 0:
+                printf("Koniec programu.\n");
+                break;
+
+            default:
+                printf("Niepoprawny wybor! Sprobuj ponownie.\n");
+        }
+
+    } while(choice != 0);
+
+    return 0;
+}
