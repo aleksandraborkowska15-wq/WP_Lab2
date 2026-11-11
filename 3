@@ -1,116 +1,93 @@
-
 #include <stdio.h>
-#include <stdbool.h>
 
-// Funkcja obliczajaca BMI
-double calculateBMI(double weight, double height) {
-    height = height / 100.0; // zamiana cm na metry
-    return weight / (height * height);
+double calculateBMI(double weight, double height)
+{
+    double height_m = height / 100.0;
+    return weight / (height_m * height_m);
 }
 
-// Funkcja obliczajaca WHR
-double calculateWHR(double waist, double hips) {
+double calculateWHR(double waist, double hips)
+{
     return waist / hips;
 }
 
-int main() {
-    double weight, height;
-    double waist, hips;
-    double bmi, whr;
+int main()
+{
     int choice;
-    char again;
 
-    do {
-        printf("\n===== KALKULATOR BMI I WHR =====\n");
+    do
+    {
+        printf("\n===== MENU =====\n");
         printf("1. Oblicz BMI\n");
         printf("2. Oblicz WHR\n");
-        printf("3. Oblicz BMI dla 3 osob\n");
-        printf("Wybierz opcje: ");
+        printf("0. Zakoncz program\n");
+        printf("Wybor: ");
+        scanf("%d", &choice);
 
-        if (scanf("%d", &choice) != 1) {
-            printf("Blad! Wprowadz prawidlowa liczbe.\n");
-            while (getchar() != '\n');
-            continue;
-        }
-
-        switch (choice) {
-
+        switch(choice)
+        {
             case 1:
-                printf("Podaj wage (kg): ");
-                if (scanf("%lf", &weight) != 1 || weight <= 0) {
-                    printf("Blad! Waga musi byc dodatnia.\n");
-                    while (getchar() != '\n');
-                    break;
-                }
+            {
+                double weight, height;
 
-                printf("Podaj wzrost (cm): ");
-                if (scanf("%lf", &height) != 1 || height <= 0) {
-                    printf("Blad! Wzrost musi byc dodatni.\n");
-                    while (getchar() != '\n');
-                    break;
-                }
-
-                bmi = calculateBMI(weight, height);
-                printf("Twoje BMI = %.2f\n", bmi);
-                break;
-
-            case 2:
-                printf("Podaj obwod talii (cm): ");
-                if (scanf("%lf", &waist) != 1 || waist <= 0) {
-                    printf("Blad! Obwod talii musi byc dodatni.\n");
-                    while (getchar() != '\n');
-                    break;
-                }
-
-                printf("Podaj obwod bioder (cm): ");
-                if (scanf("%lf", &hips) != 1 || hips <= 0) {
-                    printf("Blad! Obwod bioder musi byc dodatni.\n");
-                    while (getchar() != '\n');
-                    break;
-                }
-
-                whr = calculateWHR(waist, hips);
-                printf("Twoj wskaznik WHR = %.2f\n", whr);
-                break;
-
-            case 3:
-                printf("\nObliczanie BMI dla 3 osob:\n");
-
-                for (int i = 1; i <= 3; i++) {
+                for(int i = 1; i <= 3; i++)
+                {
                     printf("\nOsoba %d\n", i);
 
-                    printf("Podaj wage (kg): ");
-                    if (scanf("%lf", &weight) != 1 || weight <= 0) {
-                        printf("Blad! Nieprawidlowa waga.\n");
-                        while (getchar() != '\n');
-                        i--;
-                        continue;
+                    do
+                    {
+                        printf("Podaj wage (kg): ");
+                        scanf("%lf", &weight);
                     }
+                    while(weight <= 0);
 
-                    printf("Podaj wzrost (cm): ");
-                    if (scanf("%lf", &height) != 1 || height <= 0) {
-                        printf("Blad! Nieprawidlowy wzrost.\n");
-                        while (getchar() != '\n');
-                        i--;
-                        continue;
+                    do
+                    {
+                        printf("Podaj wzrost (cm): ");
+                        scanf("%lf", &height);
                     }
+                    while(height <= 0);
 
-                    bmi = calculateBMI(weight, height);
-                    printf("BMI osoby %d = %.2f\n", i, bmi);
+                    double bmi = calculateBMI(weight, height);
+
+                    printf("BMI = %.2lf\n", bmi);
                 }
+                break;
+            }
+
+            case 2:
+            {
+                double waist, hips;
+
+                do
+                {
+                    printf("Podaj obwod talii (cm): ");
+                    scanf("%lf", &waist);
+                }
+                while(waist <= 0);
+
+                do
+                {
+                    printf("Podaj obwod bioder (cm): ");
+                    scanf("%lf", &hips);
+                }
+                while(hips <= 0);
+
+                double whr = calculateWHR(waist, hips);
+
+                printf("WHR = %.2lf\n", whr);
+                break;
+            }
+
+            case 0:
+                printf("Koniec programu.\n");
                 break;
 
             default:
-                printf("Nieprawidlowy wybor! Wybierz opcje 1, 2 lub 3.\n");
-                break;
+                printf("Niepoprawny wybor! Sprobuj ponownie.\n");
         }
 
-        printf("\nCzy chcesz wykonac kolejne obliczenie? (t/n): ");
-        scanf(" %c", &again);
-
-    } while (again == 't' || again == 'T');
-
-    printf("\nKoniec programu. Dziekujemy!\n");
+    } while(choice != 0);
 
     return 0;
 }
