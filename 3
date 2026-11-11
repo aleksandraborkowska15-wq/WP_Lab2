@@ -25,6 +25,7 @@ int main() {
         printf("1. Oblicz BMI\n");
         printf("2. Oblicz WHR\n");
         printf("3. Oblicz BMI dla 3 osob\n");
+        printf("0. Zakoncz program\n");
         printf("Wybierz opcje: ");
 
         if (scanf("%d", &choice) != 1) {
@@ -99,6 +100,10 @@ int main() {
                     printf("BMI osoby %d = %.2f\n", i, bmi);
                 }
                 break;
+                
+                case 0:
+                printf("Koniec programu.\n");
+                break;
 
             default:
                 printf("Nieprawidlowy wybor! Wybierz opcje 1, 2 lub 3.\n");
@@ -110,7 +115,7 @@ int main() {
 
     } while (again == 't' || again == 'T');
 
-    printf("\nKoniec programu. Dziekujemy!\n");
+    printf("\nKoniec programu.\n");
 
     return 0;
 }
